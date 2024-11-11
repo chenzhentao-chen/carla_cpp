@@ -39,7 +39,7 @@ struct vec3f
 
   inline vec3f(void) {}
 
-  // inline vec3f operator =( vector3 a )
+  // 内联vec3f操作符=（vector3a）
   // { vec3f b ; b.x = a.x; b.y = a.y; b.z = a.z; return b;}
 
   inline vec3f(vector3 a)
@@ -300,7 +300,7 @@ class SymetricMatrix
 {
 
 public:
-  // Constructor
+  // 构造函数
 
   SymetricMatrix(double c = 0) { loopi(0, 10) m[i] = c; }
 
@@ -321,7 +321,7 @@ public:
     m[9] = m44;
   }
 
-  // Make plane
+  //创建一个平面
 
   SymetricMatrix(double a, double b, double c, double d)
   {
@@ -339,7 +339,7 @@ public:
 
   double operator[](int c) const { return m[c]; }
 
-  // Determinant
+  // 行列式
 
   double det(int a11, int a12, int a13,
              int a21, int a22, int a23,
@@ -378,7 +378,7 @@ public:
 
 namespace Simplify
 {
-  // Global Variables & Strctures
+  // 全局变量和结构
   enum Attributes
   {
     NONE,
@@ -416,10 +416,10 @@ namespace Simplify
     std::string mtllib;
     std::vector<std::string> materials;
 
-    // Helper functions
+    // 辅助函数
 
     //
-    // Main simplification function
+    //主简化函数
     //
     // target_count  : target nr. of triangles
     // agressiveness : sharpness to increase the threshold.
@@ -446,7 +446,7 @@ namespace Simplify
         if (triangle_count - deleted_triangles <= target_count)
           break;
 
-        // update mesh once in a while
+        // 在一段时间更新网格
         if (iteration % 5 == 0)
         {
           update_mesh(iteration);
@@ -463,13 +463,13 @@ namespace Simplify
         //
         double threshold = 0.000000001 * pow(double(iteration + 3), agressiveness);
 
-        // target number of triangles reached ? Then break
+        // 达到三角形的目标数量？然后休息
         if ((verbose) && (iteration % 5 == 0))
         {
           printf("iteration %d - triangles %d threshold %g\n", iteration, triangle_count - deleted_triangles, threshold);
         }
 
-        // remove vertices & mark deleted triangles
+        // 删除顶点和标记已删除的三角形
         loopi(0, triangles.size())
         {
           Triangle &t = triangles[i];
@@ -491,12 +491,12 @@ namespace Simplify
             if (v0.border || v1.border)
               continue;
 
-            // Compute vertex to collapse to
+            //计算要折叠到的顶点
             vec3f p;
             calculate_error(i0, i1, p);
-            deleted0.resize(v0.tcount); // normals temporarily
+            deleted0.resize(v0.tcount); // 法线暂时
             deleted1.resize(v1.tcount); // normals temporarily
-            // don't remove if flipped
+            // 如果翻转，不要取出
             if (flipped(p, i0, i1, v0, v1, deleted0))
               continue;
 
@@ -509,7 +509,7 @@ namespace Simplify
               update_uvs(i0, v1, p, deleted1);
             }
 
-            // not flipped, so remove edge
+            // 没有翻转，所以去掉边缘
             v0.p = p;
             v0.q = v1.q + v0.q;
             int tstart = refs.size();
