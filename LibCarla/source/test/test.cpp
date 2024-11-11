@@ -19,7 +19,7 @@ namespace carla {
     std::terminate();
   }
 
-} // namespace carla
+} // 名称空间 carla
 
 #endif // LIBCARLA_NO_EXCEPTIONS
 
@@ -29,4 +29,4 @@ namespace util {
 
   thread_local std::mt19937_64 Random::_engine((std::random_device())());
 
-} // namespace util
+} //名称空间 util
